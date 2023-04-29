@@ -18,6 +18,14 @@ class HomeViewModel @Inject constructor(
 
     fun fetchCharacter() = characterRepository.fetchCharacter()
 
+//    val characterFlow = MutableStateFlow<CharacterModel>(null)
+//    val locationFlow = MutableStateFlow<LocationModel>(null)
+//
+//    val homeData: StateFlow<ConnectedModel> = combine(
+//        characterFlow,
+//        locationFlow
+//    )
+
     fun getData() {
         val character = viewModelScope.async {
             characterRepository.fetchCharacter()

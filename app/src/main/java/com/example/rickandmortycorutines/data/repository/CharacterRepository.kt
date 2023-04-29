@@ -21,5 +21,4 @@ class CharacterRepository @Inject constructor(
         val fetchCharacter = characterApiService.fetchCharacter()
         emit(fetchCharacter)
     }.flowOn(Dispatchers.IO)
-
 }
