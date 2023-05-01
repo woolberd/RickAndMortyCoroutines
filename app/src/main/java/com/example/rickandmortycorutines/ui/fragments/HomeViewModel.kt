@@ -21,10 +21,15 @@ class HomeViewModel @Inject constructor(
     private val locationRepository: LocationRepository
 ) : ViewModel() {
 
-    private val _noteLiveData = MutableLiveData<Resource<CharacterAndLocationModel>>()
-    val noteLiveData: LiveData<Resource<CharacterAndLocationModel>> = _noteLiveData
+    private val _noteLiveData =
+        MutableLiveData<Resource<List<CharacterAndLocationModel>>>(Resource.Loading())
+    val noteLiveData: LiveData<Resource<List<CharacterAndLocationModel>>> = _noteLiveData
 
-    fun getData() {
+    init {
+        getData()
+    }
+
+    private fun getData() {
         val character = viewModelScope.async {
             characterRepository.fetchCharacter()
         }
@@ -33,24 +38,27 @@ class HomeViewModel @Inject constructor(
         }
         viewModelScope.launch {
             character.await().combine(location.await()) { character, location ->
-                return@combine when {
-                    character is Resource.Success<*> && location is Resource.Success<*> -> {
-                        Resource.Success(
-                            character.results.get(0).id.plus(location.results.get(0).id)
-                        )
+                Pair(character, location)
+            }.collect {
+                when {
+                    it.first is Resource.Error && it.second is Resource.Error -> {
+                        _noteLiveData.value = Resource.Error(it.first.message + it.second.message)
                     }
-                    character is Resource.Error<*> && location is Resource.Error<*> -> {
-                        Resource.Error(character.message.toString() + location.message.toString())
-                    }
-                    else -> {
-                        Resource.Loading()
+                    it.first is Resource.Success && it.second is Resource.Success -> {
+                        val modelsList = mutableListOf<CharacterAndLocationModel>()
+                        it.first.data!!.results.zip(it.second.data!!.results).forEach { models ->
+                            modelsList.add(
+                                CharacterAndLocationModel(
+                                    models.first,
+                                    models.second,
+                                    models.first.id
+                                )
+                            )
+                        }
+                        _noteLiveData.value = Resource.Success(modelsList)
                     }
                 }
-            }.collect{
-                _noteLiveData.postValue(it)
             }
         }
     }
 }
-
-

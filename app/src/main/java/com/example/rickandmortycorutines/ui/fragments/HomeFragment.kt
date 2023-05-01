@@ -6,6 +6,7 @@ import com.example.rickandmortycorutines.R
 import com.example.rickandmortycorutines.base.BaseFragment
 import com.example.rickandmortycorutines.databinding.FragmentHomeBinding
 import com.example.rickandmortycorutines.ui.adapter.HomeAdapter
+import com.example.rickandmortycorutines.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +25,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     }
 
     private fun subscribeToGetData() {
-            viewModel.noteLiveData.observe(viewLifecycleOwner){
+        viewModel.noteLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Error -> {}
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    homeAdapter.submitList(it.data)
+                }
             }
+        }
     }
 }
