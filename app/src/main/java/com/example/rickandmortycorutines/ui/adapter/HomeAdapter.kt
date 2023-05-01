@@ -4,12 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.example.rickandmortycorutines.base.BaseDiffUtilItemCallback
 import com.example.rickandmortycorutines.databinding.ItemHomeBinding
 import com.example.rickandmortycorutines.models.CharacterAndLocationModel
-import com.example.rickandmortycorutines.utils.RickAndMortyModel
 
 class HomeAdapter: ListAdapter<CharacterAndLocationModel, HomeAdapter.HomeViewHolder>(BaseDiffUtilItemCallback()) {
 

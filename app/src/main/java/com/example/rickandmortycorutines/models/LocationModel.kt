@@ -11,5 +11,5 @@ data class LocationModel(
     val dimension: String,
 
     @SerializedName("id")
-    val id: Int,
+    val id: Int
 )
