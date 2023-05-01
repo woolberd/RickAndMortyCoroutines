@@ -1,8 +1,6 @@
 package com.example.rickandmortycorutines.data.repository
 
-import com.example.rickandmortycorutines.data.remote.apiservices.CharacterApiService
 import com.example.rickandmortycorutines.data.remote.apiservices.LocationApiService
-import com.example.rickandmortycorutines.models.ConnectedModel
 import com.example.rickandmortycorutines.models.LocationModel
 import com.example.rickandmortycorutines.models.Response
 import kotlinx.coroutines.Dispatchers

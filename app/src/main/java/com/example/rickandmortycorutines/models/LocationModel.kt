@@ -8,5 +8,8 @@ data class LocationModel(
     val type: String,
 
     @SerializedName("dimension")
-    val dimension: String
+    val dimension: String,
+
+    @SerializedName("id")
+    val id: Int,
 )

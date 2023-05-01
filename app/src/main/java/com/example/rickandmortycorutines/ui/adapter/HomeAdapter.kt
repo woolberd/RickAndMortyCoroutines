@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.rickandmortycorutines.base.BaseDiffUtilItemCallback
 import com.example.rickandmortycorutines.databinding.ItemHomeBinding
-import com.example.rickandmortycorutines.models.ConnectedModel
+import com.example.rickandmortycorutines.models.CharacterAndLocationModel
 
 class HomeAdapter :
-    ListAdapter<ConnectedModel, HomeAdapter.HomeViewHolder>(BaseDiffUtilItemCallback()) {
+    ListAdapter<CharacterAndLocationModel, HomeAdapter.HomeViewHolder>(BaseDiffUtilItemCallback()) {
 
     class HomeViewHolder(private var binding: ItemHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: ConnectedModel) {
+        fun onBind(item: CharacterAndLocationModel) {
             binding.dimension.text = item.location.dimension
             binding.itemNameCharacter.text = item.name
             binding.typeLocation.text = item.location.type

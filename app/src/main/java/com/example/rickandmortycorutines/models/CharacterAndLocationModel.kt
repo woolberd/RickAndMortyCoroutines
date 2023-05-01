@@ -3,7 +3,7 @@ package com.example.rickandmortycorutines.models
 import com.example.rickandmortycorutines.base.IBaseDiffModel
 import com.google.gson.annotations.SerializedName
 
-data class ConnectedModel(
+data class CharacterAndLocationModel(
     @SerializedName("location")
     val location: LocationModel,
     @SerializedName("character")

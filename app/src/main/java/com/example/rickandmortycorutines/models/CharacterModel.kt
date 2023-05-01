@@ -6,4 +6,7 @@ data class CharacterModel(
 
     @SerializedName("image")
     val image: String,
+
+    @SerializedName("id")
+    val id: Int,
 )
